@@ -18,8 +18,19 @@ div {
 #header-menu {
   background-color: brown;
   display: grid;
-  grid-template-columns: 70% 15% 15%;
+  grid-template-columns: 5fr 1fr 1fr;
 }
+#stage-text {
+  grid-column: 1;
+  justify-self: start;
+}
+#settings {
+  grid-column: 2;
+}
+#sound {
+  grid-column: 3;
+}
+
 #game-menu {
   background-color: bisque;
   display: grid;
@@ -27,9 +38,32 @@ div {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
+#player-icon {
+  background-color: black;
+  grid-column: 1;
+  grid-row: 2;
+}
+
 #action-menu {
   background-color: aquamarine;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: .75fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+}
+
+#player-portrait {
+  grid-column: 1;
+  grid-row: 1 / 4;
+}
+#attack {
+  grid-column: 3;
+  grid-row: 1;
+}
+#fireball {
+  grid-column: 3;
+  grid-row: 2;
+}
+#heal {
+  grid-column: 3;
+  grid-row: 3;
 }
