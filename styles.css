@@ -43,6 +43,36 @@ div {
   grid-column: 1;
   grid-row: 2;
 }
+#enemy1 {
+  background-color: beige;
+  grid-column: 3;
+  grid-row: 1;
+}
+#enemy2 {
+  background-color: purple;
+  grid-column: 4;
+  grid-row: 1;
+}
+#enemy3 {
+  background-color: orange;
+  grid-column: 3;
+  grid-row: 2;
+}
+#enemy4 {
+  background-color: blue;
+  grid-column: 4;
+  grid-row: 2;
+}
+#enemy5 {
+  background-color: yellow;
+  grid-column: 3;
+  grid-row: 3;
+}
+#enemy6 {
+  background-color: green;
+  grid-column: 4;
+  grid-row: 3;
+}
 
 #action-menu {
   background-color: aquamarine;
@@ -53,6 +83,10 @@ div {
 
 #player-portrait {
   grid-column: 1;
+  grid-row: 1 / 4;
+}
+#stats {
+  grid-column: 2;
   grid-row: 1 / 4;
 }
 #attack {
