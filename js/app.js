@@ -9,9 +9,26 @@ import enemy from "./enemyData.js"
 var stage, clearedStages;
 
 /*------- Cached Element References -------*/
+//cached elements for header section
+const settingEl = document.getElementById("settings")
+const soundEl = document.getElementById("sound")
 
+//cached elements for action section
+const attackEl = document.getElementById("attack")
+const fireballEl = document.getElementById("fireball")
+const healEl = document.getElementById("heal")
 
 /*------- Event Listeners -------*/
+//header
+settingEl.addEventListener('click', ping)
+soundEl.addEventListener('click', ping)
 
-
+//action
+attackEl.addEventListener('click', ping)
+fireballEl.addEventListener('click', ping)
+healEl.addEventListener('click', ping)
 /*------- Functions -------*/
+
+function ping() {
+  console.log("ping")
+}
