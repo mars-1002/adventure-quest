@@ -6,7 +6,8 @@ const winCondition = 3;
 //dynamic variables to account for player stats, enemies imported as well as stage and whether win con is met
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
-var stage, clearedStages;
+import stage from "./stageData.js";
+var clearedStages;
 
 /*------- Cached Element References -------*/
 //cached elements for header section
