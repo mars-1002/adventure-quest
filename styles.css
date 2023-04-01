@@ -7,7 +7,7 @@
   max-width: 960px;
   aspect-ratio: 4/ 3;
   grid-template-columns: 1fr;
-  grid-template-rows: .1fr .5fr .4fr;
+  grid-template-rows: .1fr .6fr .3fr;
   border: 1px solid black;
 }
 
@@ -15,8 +15,21 @@ div {
   border: 1px solid black;
   justify-self: stretch;
 }
+#header-menu {
+  background-color: brown;
+  display: grid;
+  grid-template-columns: 70% 15% 15%;
+}
 #game-menu {
+  background-color: bisque;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+#action-menu {
+  background-color: aquamarine;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
 }
