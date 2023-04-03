@@ -1,19 +1,19 @@
 /*------- Constants -------*/
 //winning condition is to clear all 3 stages
 const winCondition = 3;
+let game;
 
 /*------- Variables (state) -------*/
 //dynamic variables to account for player stats, enemies imported as well as stage and whether win con is met
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
 import stage from "./stageData.js";
-var clearedStages;
-
-console.log(stage.forEach(stage => console.log(stage.enemy)))
+var clearedStages = 0, move;
 
 
 
 /*------- Cached Element References -------*/
+//cached elements for menus
 //cached elements for header section
 const settingEl = document.getElementById("settings")
 const soundEl = document.getElementById("sound")
@@ -22,26 +22,51 @@ const soundEl = document.getElementById("sound")
 const attackEl = document.getElementById("attack")
 const fireballEl = document.getElementById("fireball")
 const healEl = document.getElementById("heal")
+// const playerMoves = [...document.getElementsByClassName("player-moves")]
+// console.log(playerMoves)
 
 /*------- Classes -------*/
 class Stage {
   constructor(stage) {
     this.stageLevel = stage.level
-    // this.enemy = stage.enemy.forEach
+    this.enemies = stage.enemy
+    this.background = stage.background
+    this.playerMoves = [...document.getElementsByClassName("player-moves")]
+    // this.playerMoves = [...]
+  }
+  play () {
+    this.turn = 1;
+    this.move = this.playerMoves.forEach(click => click.addEventListener('click', ping))
   }
 }
 
+// console.log(new Stage(stage[2]))
 /*------- Event Listeners -------*/
+//main menu
+
+
 //header
 settingEl.addEventListener('click', ping)
 soundEl.addEventListener('click', ping)
 
 //action
-attackEl.addEventListener('click', ping)
-fireballEl.addEventListener('click', ping)
-healEl.addEventListener('click', ping)
+// attackEl.addEventListener('click', ping)
+// fireballEl.addEventListener('click', ping)
+// healEl.addEventListener('click', ping)
+// playerMoves.forEach(click => click.addEventListener('click', ping))
 /*------- Functions -------*/
 
-function ping() {
-  console.log("ping")
+function ping(evt) {
+  console.log(evt.target.id)
+  return evt.target.id
 }
+
+function init() { //main title screen
+  clearedStages = 0;
+}
+
+function gameStart() { //when pressing start button on title screen
+  game = new Stage(stage[clearedStages])
+  game.play();
+}
+gameStart();
