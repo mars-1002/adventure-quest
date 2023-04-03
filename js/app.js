@@ -9,6 +9,9 @@ import enemy from "./enemyData.js"
 import stage from "./stageData.js";
 var clearedStages;
 
+console.log(stage.forEach(stage => console.log(stage.enemy)))
+
+
 
 /*------- Cached Element References -------*/
 //cached elements for header section
@@ -24,6 +27,7 @@ const healEl = document.getElementById("heal")
 class Stage {
   constructor(stage) {
     this.stageLevel = stage.level
+    // this.enemy = stage.enemy.forEach
   }
 }
 
