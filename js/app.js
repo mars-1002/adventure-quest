@@ -8,7 +8,7 @@ let game;
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
 import stage from "./stageData.js";
-var clearedStages = 0, move;
+var clearedStages, move;
 
 
 
@@ -32,11 +32,21 @@ class Stage {
     this.enemies = stage.enemy
     this.background = stage.background
     this.playerMoves = [...document.getElementsByClassName("player-moves")]
+    // console.log(Stage)
     // this.playerMoves = [...]
   }
   play () {
     this.turn = 1;
+    //console.log(Stage)
+    // console.log(this.move)
+  }
+  turn () {
+    this.newConsole = this.playerMoves.forEach(click => click.addEventListener('click', console.log(Stage)))
     this.move = this.playerMoves.forEach(click => click.addEventListener('click', ping))
+  }
+  pingClass(evt) {
+    console.log(evt.target.id)
+    return evt.target.id
   }
 }
 
@@ -66,7 +76,9 @@ function init() { //main title screen
 }
 
 function gameStart() { //when pressing start button on title screen
+  clearedStages = 0; //add to init once done
   game = new Stage(stage[clearedStages])
-  game.play();
+  game.turn();
 }
+
 gameStart();
