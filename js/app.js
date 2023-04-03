@@ -9,6 +9,7 @@ import enemy from "./enemyData.js"
 import stage from "./stageData.js";
 var clearedStages;
 
+
 /*------- Cached Element References -------*/
 //cached elements for header section
 const settingEl = document.getElementById("settings")
@@ -18,6 +19,13 @@ const soundEl = document.getElementById("sound")
 const attackEl = document.getElementById("attack")
 const fireballEl = document.getElementById("fireball")
 const healEl = document.getElementById("heal")
+
+/*------- Classes -------*/
+class Stage {
+  constructor(stage) {
+    this.stageLevel = stage.level
+  }
+}
 
 /*------- Event Listeners -------*/
 //header
