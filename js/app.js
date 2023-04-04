@@ -21,6 +21,7 @@ const soundEl = document.getElementById("sound")
 //cached elements for action section
 const playerMoves = [...document.getElementsByClassName("player-moves")]
 const combatText = document.getElementById("combat-text")
+console.log(combatText.innerText)
 
 /*------- Classes -------*/
 class Stage {
@@ -29,8 +30,6 @@ class Stage {
     this.enemies = stage.enemy
     this.background = stage.background
     this.playerMoves = [...document.getElementsByClassName("player-moves")]
-    // console.log(Stage)
-    // this.playerMoves = [...]
   }
 }
 
@@ -63,7 +62,13 @@ function init() { //main title screen
   render();
 }
 function render() {
+  updateCombatText();
+}
 
+function updateCombatText() {
+  if(turn = 1) {
+    combatText.textContent = "Your turn!"
+  }
 }
 
 function gameStart() { //when pressing start button on title screen
