@@ -55,7 +55,7 @@ function ping(evt) {
   return evt.target.id
 }
 
-function init() { //main title screen
+function init() { //init game
   clearedStages = 0;
   game = new Stage(stage[clearedStages])
   turn = 1;
@@ -63,6 +63,11 @@ function init() { //main title screen
 }
 function render() {
   updateCombatText();
+  updateActionScene();
+}
+
+function updateActionScene() {
+  console.log("ping")
 }
 
 function updateCombatText() {
@@ -72,9 +77,9 @@ function updateCombatText() {
 }
 
 function gameStart() { //when pressing start button on title screen
-  clearedStages = 0; //add to init once done
+  clearedStages = 0;
   game = new Stage(stage[clearedStages])
-  // game.turn();
+  init();
 }
 
 init();
