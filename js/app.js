@@ -49,10 +49,12 @@ soundEl.addEventListener('click', ping)
 // attackEl.addEventListener('click', ping)
 // fireballEl.addEventListener('click', ping)
 // healEl.addEventListener('click', ping)
-playerMoves.forEach(click => click.addEventListener('click', updatePlayerTurn))
+playerMoves.forEach(click => click.addEventListener('click', handleClick))
 //turn updatePlayerTurn into a handleClick to run logic
 /*------- Functions -------*/
-
+function handleClick(event) {
+  updatePlayerTurn(event)
+}
 function ping(evt) {
   console.log(evt.target.id)
   console.log(game)
@@ -71,12 +73,13 @@ function render() {
 }
 
 function updatePlayerTurn(event) {
+  console.log(event)
   if(event.srcElement.id == "attack"){ //updateCombatText
-    console.log("you chose attack!")
+    combatText.textContent = "you chose attack!"
   } else if (event.srcElement.id == "heal") {
-    console.log("you chose heal!")
+    combatText.textContent = "you chose heal!"
   } else if (event.srcElement.id == "fireball") {
-    console.log("you chose fireball!")
+    combatText.textContent = "you chose fireball!"
   }
 }
 
@@ -99,4 +102,4 @@ function gameStart() { //when pressing start button on title screen
   init();
 }
 
-init();
+init(); //remove later to turn gamestart into action btn
