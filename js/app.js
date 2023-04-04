@@ -24,6 +24,8 @@ const enemyIcon = [...document.getElementsByClassName("enemy")]
 const combatText = document.getElementById("combat-text")
 const playerMoves = [...document.getElementsByClassName("player-moves")]
 
+
+console.log(enemyIcon[0].textContent)
 /*------- Classes -------*/
 class Stage {
   constructor(stage) {
@@ -69,7 +71,7 @@ function render() {
 
 function updateActionScene() {
   playerIcon.textContent = player[0].name
-  enemyIcon.textContent = enemy[0].name
+  enemyIcon.forEach(enemy => enemy.textContent = "enemy") //add func to class to assign individual enemy id
   console.log(game)
 
 }
