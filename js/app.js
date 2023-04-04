@@ -49,7 +49,8 @@ soundEl.addEventListener('click', ping)
 // attackEl.addEventListener('click', ping)
 // fireballEl.addEventListener('click', ping)
 // healEl.addEventListener('click', ping)
-playerMoves.forEach(click => click.addEventListener('click', ping))
+playerMoves.forEach(click => click.addEventListener('click', updatePlayerTurn))
+//turn updatePlayerTurn into a handleClick to run logic
 /*------- Functions -------*/
 
 function ping(evt) {
@@ -69,6 +70,16 @@ function render() {
   updateActionScene();
 }
 
+function updatePlayerTurn(event) {
+  if(event.srcElement.id == "attack"){ //updateCombatText
+    console.log("you chose attack!")
+  } else if (event.srcElement.id == "heal") {
+    console.log("you chose heal!")
+  } else if (event.srcElement.id == "fireball") {
+    console.log("you chose fireball!")
+  }
+}
+
 function updateActionScene() {
   playerIcon.textContent = player[0].name
   enemyIcon.forEach(enemy => enemy.textContent = "enemy") //add func to class to assign individual enemy id
@@ -79,7 +90,7 @@ function updateActionScene() {
 function updateCombatText() {
   if(turn = 1) {
     combatText.textContent = "Your turn!"
-  }
+  } 
 }
 
 function gameStart() { //when pressing start button on title screen
