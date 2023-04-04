@@ -39,7 +39,7 @@ div {
 }
 
 #player-icon {
-  background-color: black;
+  background-color: gray;
   grid-column: 1;
   grid-row: 2;
 }

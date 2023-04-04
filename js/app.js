@@ -19,9 +19,10 @@ const settingEl = document.getElementById("settings")
 const soundEl = document.getElementById("sound")
 
 //cached elements for action section
-const playerMoves = [...document.getElementsByClassName("player-moves")]
+const playerIcon = document.getElementById("player-icon")
+const enemyIcon = [...document.getElementsByClassName("enemy")]
 const combatText = document.getElementById("combat-text")
-console.log(combatText.innerText)
+const playerMoves = [...document.getElementsByClassName("player-moves")]
 
 /*------- Classes -------*/
 class Stage {
@@ -67,7 +68,10 @@ function render() {
 }
 
 function updateActionScene() {
-  console.log("ping")
+  playerIcon.textContent = player[0].name
+  enemyIcon.textContent = enemy[0].name
+  console.log(game)
+
 }
 
 function updateCombatText() {
