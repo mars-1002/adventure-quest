@@ -91,7 +91,7 @@ function updatePlayerTurn(event) {
 }
 
 function enemySelector(event) { //selects/deselects enemy
-  if(enemyTileActive(event.target.id)) return
+  if(enemyTileActive(event.target.id.charAt(5))) return // conditional check if enemyTile is acive
   for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
     enemyIcon[i].classList.remove("enemy-selected")
   }
@@ -100,8 +100,8 @@ function enemySelector(event) { //selects/deselects enemy
 }
 
 function enemyTileActive(enemyNum) {
-  console.log(enemyNum)
-  console.log(game.enemies)
+  if(enemyIcon[enemyNum-1].textContent == "empty") return true
+  else return false
 }
 
 function updateActionScene() {
