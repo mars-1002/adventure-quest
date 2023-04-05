@@ -25,7 +25,6 @@ const combatText = document.getElementById("combat-text")
 const playerMoves = [...document.getElementsByClassName("player-moves")]
 
 
-console.log(enemyIcon[0].textContent)
 /*------- Classes -------*/
 class Stage {
   constructor(stage) {
@@ -53,6 +52,7 @@ function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
 
   updatePlayerTurn(event) // update HTML "combat-text"
+  updateEnemyTurn()
 }
 function ping(evt) {
   console.log(evt.target.id)
@@ -61,7 +61,7 @@ function ping(evt) {
 }
 
 function init() { //init game
-  clearedStages = 0;
+  clearedStages = 1; //remove later once gameStart works
   game = new Stage(stage[clearedStages])
   turn = 1;
   renderBoard();
@@ -88,6 +88,13 @@ function updatePlayerTurn(event) {
   } else if (event.srcElement.id == "fireball") {
     combatText.textContent = "you chose fireball!"
   }
+}
+
+function updateEnemyTurn() {
+  var enemyTurn = Math.floor(Math.random() * 3)
+  if(enemyTurn == 0) combatText.textContent = "enemy chose attack!"
+  else if(enemyTurn == 1) combatText.textContent = "enemy chose fireball!"
+  else combatText.textContent = "enemy chose heal!"
 }
 
 function enemySelector(event) { //selects/deselects enemy
