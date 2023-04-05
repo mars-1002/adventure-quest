@@ -1,11 +1,5 @@
 /*------- Constants -------*/
 //winning condition is to clear all 3 stages
-setTimeout(() => {
-  console.log("Delayed for 1 second.");
-}, "1000");
-setTimeout(() => {
-  console.log("Delayed for 1 second.");
-}, "1000");
 const winCondition = true;
 var game;
 
@@ -59,12 +53,15 @@ soundEl.addEventListener('click', ping)
 playerMoves.forEach(click => click.addEventListener('click', handleClick))
 enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 //turn updatePlayerTurn into a handleClick to run logic
+
 /*------- Functions -------*/
 function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
+  // if(levelClear) return //condition to see if all enemies are cleared
 
   updatePlayerTurn(event) // update HTML "combat-text"
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
+  setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
 }
 function ping(evt) {
   console.log(evt.target.id)
@@ -73,7 +70,7 @@ function ping(evt) {
 }
 
 function init() { //init game
-  clearedStages = 0; //remove later once gameStart works
+  clearedStages = 1; //remove later once gameStart works
   game = new Stage(stage[clearedStages])
   turn = 1;
   renderBoard();
@@ -90,6 +87,14 @@ function renderBoard() {
 function renderAction() {
   updateCombatText();
   updateActionScene();
+}
+
+function levelClear() {
+  for(let i=0; i<enemy.length-1; i++) {
+    if(!game.enemies[i] == "") {
+      console.log("Game is NOT cleared")
+    }else console.log("Game is cleared")
+  }
 }
 
 function updatePlayerTurn(event) {
@@ -144,3 +149,4 @@ function gameStart() { //when pressing start button on title screen
 }
 
 init(); //remove later to turn gamestart into action btn
+console.log(game.enemies)
