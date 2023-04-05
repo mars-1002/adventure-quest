@@ -8,7 +8,7 @@ var game;
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
 import stage from "./stageData.js";
-var clearedStages = 0, turn;
+var clearedStages = 0, turn, enemySelected = 0;
 
 
 
@@ -46,10 +46,8 @@ settingEl.addEventListener('click', ping)
 soundEl.addEventListener('click', ping)
 
 //action
-// attackEl.addEventListener('click', ping)
-// fireballEl.addEventListener('click', ping)
-// healEl.addEventListener('click', ping)
 playerMoves.forEach(click => click.addEventListener('click', handleClick))
+enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 //turn updatePlayerTurn into a handleClick to run logic
 /*------- Functions -------*/
 function handleClick(event) {
@@ -81,6 +79,11 @@ function updatePlayerTurn(event) {
   } else if (event.srcElement.id == "fireball") {
     combatText.textContent = "you chose fireball!"
   }
+}
+
+function enemySelector(event) {
+  console.log(event.target.id)
+  event.target.classList.add("enemy-selected")
 }
 
 function updateActionScene() {
