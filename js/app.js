@@ -14,7 +14,7 @@ var clearedStages = 0, turn, enemySelected = 0, cooldown = 1;
 
 /*------- Cached Element References -------*/
 //general cached
-const screenEl = document.getElementById("main")
+const screenEl = document.getElementById("main") 
 //cached elements for menus
 
 //cached elements for header section
@@ -61,7 +61,7 @@ function handleClick(event) {
   //fix gameCleared and levelClear once enemies are in
 
   flipCooldown() // makes unable to switch "enemySelected"
-  setTimeout(() => flipCooldown(), 4000) //reallows "enemySelection"
+  setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
   updatePlayerTurn(event) // update HTML "combat-text"
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
   setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
@@ -116,19 +116,32 @@ function levelClear() {
 function updatePlayerTurn(event) {
   if(event.srcElement.id == "attack"){ //updateCombatText
     combatText.textContent = "you chose attack!"
+    console.log(player[0].attack)
+    attackMove(player[0], document.getElementById(enemySelected).innerText)
   } else if (event.srcElement.id == "heal") {
     combatText.textContent = "you chose heal!"
+    console.log(player[0].magicAttack)
+    healMove(player[0])
   } else if (event.srcElement.id == "fireball") {
     combatText.textContent = "you chose fireball!"
+    console.log(player[0].magicAttack)
+    mAttackMove(player[0], document.getElementById(enemySelected).innerText)
   }
 
 }
 
 function updateEnemyTurn() {
   var enemyTurn = Math.floor(Math.random() * 3)
-  if(enemyTurn == 0) combatText.textContent = "enemy chose attack!"
-  else if(enemyTurn == 1) combatText.textContent = "enemy chose fireball!"
-  else combatText.textContent = "enemy chose heal!"
+  console.log(enemy)
+  if(enemyTurn == 0) {
+    combatText.textContent = "enemy chose attack!"
+  }
+  else if(enemyTurn == 1) {
+    combatText.textContent = "enemy chose fireball!"
+  }
+  else {
+    combatText.textContent = "enemy chose heal!"
+  }
 }
 
 function enemySelector(event) { //selects/deselects enemy
@@ -158,6 +171,18 @@ function updateCombatText() {
   if(turn = 1) {
     combatText.textContent = "Your turn!"
   } 
+}
+
+function attackMove(actor, target) {
+  console.log(`${actor.name} attacked ${target} for ${actor.attack} damage!`)
+}
+
+function mAttackMove(actor, target) {
+  console.log(`${actor.name} attacked ${target} for ${actor.magicAttack} magic damage!`)
+}
+
+function healMove(actor) {
+  console.log(`${actor.name} healed for ${actor.magicAttack} health!`)
 }
 
 function gameStart() { //when pressing start button on title screen
