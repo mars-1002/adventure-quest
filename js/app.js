@@ -51,6 +51,8 @@ enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 //turn updatePlayerTurn into a handleClick to run logic
 /*------- Functions -------*/
 function handleClick(event) {
+  if(!enemySelected) return // conditional to check if an enemy is selected
+
   updatePlayerTurn(event)
 }
 function ping(evt) {
@@ -71,7 +73,6 @@ function render() {
 }
 
 function updatePlayerTurn(event) {
-  console.log(event)
   if(event.srcElement.id == "attack"){ //updateCombatText
     combatText.textContent = "you chose attack!"
   } else if (event.srcElement.id == "heal") {
@@ -82,11 +83,11 @@ function updatePlayerTurn(event) {
 }
 
 function enemySelector(event) {
-  // console.log(enemyIcon[0].classList)
-  for(let i=0; i<enemyIcon.length; i++) {
+  for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
     enemyIcon[i].classList.remove("enemy-selected")
   }
-  event.target.classList.add("enemy-selected")
+  event.target.classList.add("enemy-selected") // add visual indicator
+  enemySelected = event.target.id // add enemy ID to enemySelected
 }
 
 function updateActionScene() {
