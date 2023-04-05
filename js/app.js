@@ -1,5 +1,11 @@
 /*------- Constants -------*/
 //winning condition is to clear all 3 stages
+setTimeout(() => {
+  console.log("Delayed for 1 second.");
+}, "1000");
+setTimeout(() => {
+  console.log("Delayed for 1 second.");
+}, "1000");
 const winCondition = true;
 var game;
 
@@ -13,7 +19,10 @@ var clearedStages = 0, turn, enemySelected = 0;
 
 
 /*------- Cached Element References -------*/
+//general cached
+const screenEl = document.getElementById("main")
 //cached elements for menus
+
 //cached elements for header section
 const settingEl = document.getElementById("settings")
 const soundEl = document.getElementById("sound")
@@ -36,6 +45,9 @@ class Stage {
 }
 
 /*------- Event Listeners -------*/
+//general 
+// screenEl.addEventListener('click', ping)
+
 //main menu
 
 
@@ -52,7 +64,7 @@ function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
 
   updatePlayerTurn(event) // update HTML "combat-text"
-  updateEnemyTurn()
+  setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
 }
 function ping(evt) {
   console.log(evt.target.id)
@@ -61,7 +73,7 @@ function ping(evt) {
 }
 
 function init() { //init game
-  clearedStages = 1; //remove later once gameStart works
+  clearedStages = 0; //remove later once gameStart works
   game = new Stage(stage[clearedStages])
   turn = 1;
   renderBoard();
@@ -88,6 +100,7 @@ function updatePlayerTurn(event) {
   } else if (event.srcElement.id == "fireball") {
     combatText.textContent = "you chose fireball!"
   }
+
 }
 
 function updateEnemyTurn() {
