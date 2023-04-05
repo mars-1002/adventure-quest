@@ -36,7 +36,6 @@ class Stage {
   }
 }
 
-// console.log(new Stage(stage[2]))
 /*------- Event Listeners -------*/
 //main menu
 
@@ -53,7 +52,7 @@ enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
 
-  updatePlayerTurn(event)
+  updatePlayerTurn(event) // update HTML "combat-text"
 }
 function ping(evt) {
   console.log(evt.target.id)
@@ -65,9 +64,18 @@ function init() { //init game
   clearedStages = 0;
   game = new Stage(stage[clearedStages])
   turn = 1;
-  render();
+  renderBoard();
+  renderAction();
 }
-function render() {
+
+function renderBoard() {
+  for(let i=0; i<enemy.length-1; i++) {
+    if(game.enemies[i] == "") {
+      enemyIcon[i].textContent = "empty"
+    }else enemyIcon[i].textContent = game.enemies[i]
+  }
+}
+function renderAction() {
   updateCombatText();
   updateActionScene();
 }
@@ -82,7 +90,8 @@ function updatePlayerTurn(event) {
   }
 }
 
-function enemySelector(event) {
+function enemySelector(event) { //selects/deselects enemy
+  if(enemyTileActive(event.target.id)) return
   for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
     enemyIcon[i].classList.remove("enemy-selected")
   }
@@ -90,9 +99,14 @@ function enemySelector(event) {
   enemySelected = event.target.id // add enemy ID to enemySelected
 }
 
+function enemyTileActive(enemyNum) {
+  console.log(enemyNum)
+  console.log(game.enemies)
+}
+
 function updateActionScene() {
   playerIcon.textContent = player[0].name
-  enemyIcon.forEach(enemy => enemy.textContent = "enemy") //add func to class to assign individual enemy id
+  // enemyIcon.forEach(enemy => enemy.textContent = "enemy") //add func to class to assign individual enemy id
   console.log(game)
 
 }
