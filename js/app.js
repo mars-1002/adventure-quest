@@ -82,7 +82,10 @@ function updatePlayerTurn(event) {
 }
 
 function enemySelector(event) {
-  console.log(event.target.id)
+  // console.log(enemyIcon[0].classList)
+  for(let i=0; i<enemyIcon.length; i++) {
+    enemyIcon[i].classList.remove("enemy-selected")
+  }
   event.target.classList.add("enemy-selected")
 }
 
