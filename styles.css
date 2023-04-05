@@ -103,3 +103,6 @@ div {
   grid-column: 3;
   grid-row: 3;
 }
+.player-moves-disable {
+  background-color: darkgrey;
+}

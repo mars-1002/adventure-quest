@@ -8,7 +8,7 @@ var game;
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
 import stage from "./stageData.js";
-var clearedStages = 0, turn, enemySelected = 0;
+var clearedStages = 0, turn, enemySelected = 0, cooldown = 1;
 
 
 
@@ -57,20 +57,36 @@ enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 /*------- Functions -------*/
 function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
-  // if(levelClear) return //condition to see if all enemies are cleared
+  if(!levelClear) return gameCleared()//condition to see if all enemies are cleared
+  //fix gameCleared and levelClear once enemies are in
 
+  flipCooldown() // makes unable to switch "enemySelected"
+  setTimeout(() => flipCooldown(), 4000) //reallows "enemySelection"
   updatePlayerTurn(event) // update HTML "combat-text"
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
   setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
 }
+
+function gameCleared() {
+  combatText.textContent = "You cleared the game!"
+}
+
 function ping(evt) {
   console.log(evt.target.id)
   console.log(game)
   return evt.target.id
 }
 
+function flipCooldown() {
+  cooldown = cooldown * -1;
+  if(cooldown == -1) { // greys out player actions to make UI more understandable
+    playerMoves.forEach(move => move.classList.add("player-moves-disable"))
+  }
+  else playerMoves.forEach(move => move.classList.remove("player-moves-disable"))
+}
+
 function init() { //init game
-  clearedStages = 1; //remove later once gameStart works
+  clearedStages = 0; //remove later once gameStart works
   game = new Stage(stage[clearedStages])
   turn = 1;
   renderBoard();
@@ -92,8 +108,8 @@ function renderAction() {
 function levelClear() {
   for(let i=0; i<enemy.length-1; i++) {
     if(!game.enemies[i] == "") {
-      console.log("Game is NOT cleared")
-    }else console.log("Game is cleared")
+      return true
+    }else return false
   }
 }
 
@@ -116,12 +132,14 @@ function updateEnemyTurn() {
 }
 
 function enemySelector(event) { //selects/deselects enemy
-  if(enemyTileActive(event.target.id.charAt(5))) return // conditional check if enemyTile is acive
-  for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
-    enemyIcon[i].classList.remove("enemy-selected")
-  }
-  event.target.classList.add("enemy-selected") // add visual indicator
-  enemySelected = event.target.id // add enemy ID to enemySelected
+  if(cooldown == 1){
+    if(enemyTileActive(event.target.id.charAt(5))) return // conditional check if enemyTile is acive
+    for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
+      enemyIcon[i].classList.remove("enemy-selected")
+    }
+    event.target.classList.add("enemy-selected") // add visual indicator
+    enemySelected = event.target.id // add enemy ID to enemySelected
+}
 }
 
 function enemyTileActive(enemyNum) {
