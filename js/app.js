@@ -10,7 +10,7 @@ import enemy from "./enemyData.js"
 import stage from "./stageData.js";
 var clearedStages = 0, turn, enemySelected = 0, cooldown = 1;
 
-
+var enemyData
 
 /*------- Cached Element References -------*/
 //general cached
@@ -62,6 +62,7 @@ function handleClick(event) {
 
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
+  getEnemyData()
   updatePlayerTurn(event) // update HTML "combat-text"
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
   setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
@@ -113,34 +114,49 @@ function levelClear() {
   }
 }
 
+function getEnemyData() {
+  for(let i=0; i<enemyIcon.length; i++) {
+    if(!game.enemies[i] == "") {
+      enemy.forEach(enemy => {
+        if(enemy.name == game.enemies[i])
+        enemyData = enemy
+      })
+    }
+  }
+}
+
 function updatePlayerTurn(event) {
   if(event.srcElement.id == "attack"){ //updateCombatText
     combatText.textContent = "you chose attack!"
-    console.log(player[0].attack)
-    attackMove(player[0], document.getElementById(enemySelected).innerText)
+    attackMove(player[0], enemyData)
   } else if (event.srcElement.id == "heal") {
     combatText.textContent = "you chose heal!"
-    console.log(player[0].magicAttack)
     healMove(player[0])
   } else if (event.srcElement.id == "fireball") {
     combatText.textContent = "you chose fireball!"
-    console.log(player[0].magicAttack)
-    mAttackMove(player[0], document.getElementById(enemySelected).innerText)
+    mAttackMove(player[0], enemyData)
   }
 
 }
 
 function updateEnemyTurn() {
-  var enemyTurn = Math.floor(Math.random() * 3)
-  console.log(enemy)
-  if(enemyTurn == 0) {
-    combatText.textContent = "enemy chose attack!"
-  }
-  else if(enemyTurn == 1) {
-    combatText.textContent = "enemy chose fireball!"
-  }
-  else {
-    combatText.textContent = "enemy chose heal!"
+
+  for(let i=0; i<enemyIcon.length; i++) {
+    if(!game.enemies[i] == "") {
+      var enemyTurn = Math.floor(Math.random() * 3)
+      if(enemyTurn == 0) {
+        combatText.textContent = `${game.enemies[i]} chose attack!`
+        attackMove(enemyData, player[0])
+      }
+      else if(enemyTurn == 1) {
+        combatText.textContent = `${game.enemies[i]} chose fireball!`
+        mAttackMove(enemyData, player[0])
+      }
+      else {
+        combatText.textContent = `${game.enemies[i]} chose heal!`
+        healMove(enemyData)
+      }
+    }
   }
 }
 
@@ -174,11 +190,11 @@ function updateCombatText() {
 }
 
 function attackMove(actor, target) {
-  console.log(`${actor.name} attacked ${target} for ${actor.attack} damage!`)
+  console.log(`${actor.name} attacked ${target.name} for ${actor.attack} damage!`)
 }
 
 function mAttackMove(actor, target) {
-  console.log(`${actor.name} attacked ${target} for ${actor.magicAttack} magic damage!`)
+  console.log(`${actor.name} attacked ${target.name} for ${actor.magicAttack} magic damage!`)
 }
 
 function healMove(actor) {
@@ -192,4 +208,3 @@ function gameStart() { //when pressing start button on title screen
 }
 
 init(); //remove later to turn gamestart into action btn
-console.log(game.enemies)
