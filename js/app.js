@@ -193,12 +193,36 @@ function updateEnemyTurn() { // currently takes in the length of active enemies
       if(enemyTurn == 0) {
         combatText.textContent = `${game.enemies[i]} chose attack!`
         console.log(`${game.enemies[i]} chose attack!`)
-        // attackMove(enemyData, player[0])
+        if(i == 0){
+          attackMove(enemyData1,player[0])
+        } else if(i == 1) {
+          attackMove(enemyData2, player[0])
+        } else if(i == 2) {
+          attackMove(enemyData3, player[0])
+        } else if(i == 3) {
+          attackMove(enemyData4, player[0])
+        } else if(i == 4) {
+          attackMove(enemyData5, player[0])
+        } else if(i == 5) {
+          attackMove(enemyData6, player[0])
+        }
       }
       else if(enemyTurn == 1) {
         combatText.textContent = `${game.enemies[i]} chose fireball!`
         console.log(`${game.enemies[i]} chose fireball!`)
-        // mAttackMove(enemyData, player[0])
+        if(i == 0){
+          mAttackMove(enemyData1,player[0])
+        } else if(i == 1) {
+          mAttackMove(enemyData2, player[0])
+        } else if(i == 2) {
+          mAttackMove(enemyData3, player[0])
+        } else if(i == 3) {
+          mAttackMove(enemyData4, player[0])
+        } else if(i == 4) {
+          mAttackMove(enemyData5, player[0])
+        } else if(i == 5) {
+          mAttackMove(enemyData6, player[0])
+        }
       }
       else {
         combatText.textContent = `${game.enemies[i]} chose heal!`
@@ -239,7 +263,7 @@ function enemySelector(event) { //selects/deselects enemy
       enemyUpdater = "enemy6"
     }
     console.log(enemySelected)
-}
+  }
 }
 
 function enemyTileActive(enemyNum) {
