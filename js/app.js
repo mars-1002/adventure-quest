@@ -67,8 +67,8 @@ function handleClick(event) {
   renderEnemyTurn()
 }
 function renderPlayerTurn(event){
-  enemyActiveCheck(enemySelected) //console.log for seleceted enemy
   updatePlayerTurn(event) // update HTML "combat-text"
+  enemyActiveCheck(enemySelected) //removes selection if enemy is dead
 }
 
 function renderEnemyTurn(){
@@ -127,36 +127,23 @@ function levelClear() {
 function getEnemyData() {
     if(!game.enemies == "") {
       enemy.forEach(enemy => {
-        // console.log(game.enemies[i] + " at i=" + i)
         if(enemy.name == game.enemies[0]) {
           enemyData1 = enemy
-          console.log("0")
-          console.log(enemyData1)
         }
         else if(enemy.name == game.enemies[1]){
           enemyData2 = enemy
-          console.log("1")
-          console.log(enemyData2)
         }
         else if(enemy.name == game.enemies[2]){
           enemyData3 = enemy
-          console.log("2")
-          console.log(enemyData3)
         }
         else if(enemy.name == game.enemies[3]){
           enemyData4 = enemy
-          console.log("3")
-          console.log(enemyData4)
         }
         else if(enemy.name == game.enemies[4]){
           enemyData5 = enemy
-          console.log("4")
-          console.log(enemyData5)
         }
         else if(enemy.name == game.enemies[5]){
           enemyData6 = enemy
-          console.log("5")
-          console.log(enemyData6)
         }
       })
     }
@@ -179,7 +166,26 @@ function updatePlayerTurn(event) {
 }
 
 function enemyActiveCheck(enemy) { //check if tile selected is still occupied, if not, deselect
-  // console.log(enemy) 
+  console.log(enemy)
+  console.log(enemyUpdater)
+  if(enemy.health <= 0) {
+    for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
+    enemyIcon[i].classList.remove("enemy-selected")
+    }
+    if(enemyUpdater == "enemy1") {
+
+    } else if(enemyUpdater == "enemy2") {
+
+    } else if(enemyUpdater == "enemy3") {
+      
+    } else if(enemyUpdater == "enemy4") {
+      
+    } else if(enemyUpdater == "enemy5") {
+      
+    } else if(enemyUpdater == "enemy6") {
+      console.log(enemyIcon[5].classList.add("dead"))
+    }
+  }
 }
 
 
@@ -242,7 +248,6 @@ function enemySelector(event) { //selects/deselects enemy
     event.target.classList.add("enemy-selected") // add visual indicator
     enemySelected = event.target.innerText // add enemy ID to enemySelected temp
     let id = parseInt(event.target.id.charAt(5))-1
-    console.log(id)
     if(id == 0) { //assigns enemySelected to current enemy
       enemySelected = enemyData1
       enemyUpdater = "enemy1"
@@ -262,7 +267,6 @@ function enemySelector(event) { //selects/deselects enemy
       enemySelected = enemyData6 
       enemyUpdater = "enemy6"
     }
-    console.log(enemySelected)
   }
 }
 
@@ -288,14 +292,12 @@ function attackMove(actor, target) {
   console.log(`${actor.name} attacked ${target.name} for ${actor.attack} damage!`)
   console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.attack}`)
   target.health -= actor.attack
-  console.log(target.health)
 }
 
 function mAttackMove(actor, target) {
   console.log(`${actor.name} attacked ${target.name} for ${actor.magicAttack} magic damage!`)
   console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.magicAttack}`)
   target.health -= actor.magicAttack
-  console.log(target.health)
 }
 
 function healMove(actor) {

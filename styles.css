@@ -106,3 +106,6 @@ div {
 .player-moves-disable {
   background-color: darkgrey;
 }
+.dead {
+  background-color: grey;
+}
