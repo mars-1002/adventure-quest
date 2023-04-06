@@ -10,7 +10,7 @@ import enemy from "./enemyData.js"
 import stage from "./stageData.js";
 var clearedStages = 0, turn, enemySelected = 0, cooldown = 1;
 
-var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6;
+var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater;
 
 /*------- Cached Element References -------*/
 //general cached
@@ -129,8 +129,8 @@ function getEnemyData() {
       enemy.forEach(enemy => {
         // console.log(game.enemies[i] + " at i=" + i)
         if(enemy.name == game.enemies[0]) {
-          console.log("0")
           enemyData1 = enemy
+          console.log("0")
           console.log(enemyData1)
         }
         else if(enemy.name == game.enemies[1]){
@@ -166,13 +166,14 @@ function updatePlayerTurn(event) {
   if(event.srcElement.id == "attack"){ //updateCombatText
     combatText.textContent = `You attacked ${enemySelected.name}!`
     attackMove(player[0], enemySelected)
-    // console.log(game.enemies[event.target.id.charAt(5)])
+    updateEnemyHealth()
   } else if (event.srcElement.id == "heal") {
     combatText.textContent = "you chose heal!"
     healMove(player[0])
   } else if (event.srcElement.id == "fireball") {
     combatText.textContent = `You casted a fireball on ${enemySelected.name}!`
-    // mAttackMove(player[0], enemyData)
+    mAttackMove(player[0], enemySelected)
+    updateEnemyHealth()
   }
 
 }
@@ -186,9 +187,9 @@ function updateEnemyTurn() { // currently takes in the length of active enemies
   //change func to only account for 1 enemy turn
   //add in logic for hp checks
 
-  for(let i=0; i<enemyIcon.length; i++) { //move into a sep func
+  for(let i=0; i<enemyIcon.length; i++) { //move for into a sep func for each enemy
     if(!game.enemies[i] == "") {
-      var enemyTurn = Math.floor(Math.random() * 3)
+      var enemyTurn = Math.floor(Math.random() * 2)
       if(enemyTurn == 0) {
         combatText.textContent = `${game.enemies[i]} chose attack!`
         console.log(`${game.enemies[i]} chose attack!`)
@@ -220,16 +221,22 @@ function enemySelector(event) { //selects/deselects enemy
     console.log(id)
     if(id == 0) { //assigns enemySelected to current enemy
       enemySelected = enemyData1
+      enemyUpdater = "enemy1"
     }else if(id == 1) {
       enemySelected = enemyData2
+      enemyUpdater = "enemy2"
     }else if(id == 2) {
       enemySelected = enemyData3
+      enemyUpdater = "enemy3"
     }else if(id == 3) {
       enemySelected = enemyData4
+      enemyUpdater = "enemy4"
     }else if(id == 4) {
       enemySelected = enemyData5
+      enemyUpdater = "enemy5"
     }else if(id == 5) {
       enemySelected = enemyData6 
+      enemyUpdater = "enemy6"
     }
     console.log(enemySelected)
 }
@@ -255,14 +262,36 @@ function updateCombatText() {
 
 function attackMove(actor, target) {
   console.log(`${actor.name} attacked ${target.name} for ${actor.attack} damage!`)
+  console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.attack}`)
+  target.health -= actor.attack
+  console.log(target.health)
 }
 
 function mAttackMove(actor, target) {
   console.log(`${actor.name} attacked ${target.name} for ${actor.magicAttack} magic damage!`)
+  console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.magicAttack}`)
+  target.health -= actor.magicAttack
+  console.log(target.health)
 }
 
 function healMove(actor) {
   console.log(`${actor.name} healed for ${actor.magicAttack} health!`)
+}
+
+function updateEnemyHealth() {
+  if(enemyUpdater == 1){
+  enemyData1 = enemySelected
+  } else if(enemyUpdater == 2) {
+    enemyData2 = enemySelected
+  } else if(enemyUpdater == 3) {
+    enemyData3 = enemySelected
+  } else if(enemyUpdater == 4) {
+    enemyData4 = enemySelected
+  } else if(enemyUpdater == 5) {
+    enemyData5 = enemySelected
+  } else if(enemyUpdater == 6) {
+    enemyData6 = enemySelected
+  }
 }
 
 function gameStart() { //when pressing start button on title screen
