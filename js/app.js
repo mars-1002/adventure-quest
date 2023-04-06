@@ -173,17 +173,17 @@ function enemyActiveCheck(enemy) { //check if tile selected is still occupied, i
     enemyIcon[i].classList.remove("enemy-selected")
     }
     if(enemyUpdater == "enemy1") {
-
+      enemyIcon[0].classList.add("dead")
     } else if(enemyUpdater == "enemy2") {
-
+      enemyIcon[1].classList.add("dead")
     } else if(enemyUpdater == "enemy3") {
-      
+      enemyIcon[2].classList.add("dead")
     } else if(enemyUpdater == "enemy4") {
-      
+      enemyIcon[3].classList.add("dead")
     } else if(enemyUpdater == "enemy5") {
-      
+      enemyIcon[4].classList.add("dead")
     } else if(enemyUpdater == "enemy6") {
-      console.log(enemyIcon[5].classList.add("dead"))
+      enemyIcon[5].classList.add("dead")
     }
   }
 }
