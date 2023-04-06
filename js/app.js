@@ -63,7 +63,7 @@ function handleClick(event) {
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
   getEnemyData()
-  enemyActiveCheck(enemySelected)
+  enemyActiveCheck(enemySelected) //console.log for seleceted enemy
   updatePlayerTurn(event) // update HTML "combat-text"
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
   setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
@@ -123,8 +123,6 @@ function levelClear() {
 }
 
 function getEnemyData() {
-  // game.enemies.forEach(enemy => console.log(enemy))
-  // for(let i=0; i<enemyIcon.length; i++) {
     if(!game.enemies == "") {
       enemy.forEach(enemy => {
         // console.log(game.enemies[i] + " at i=" + i)
@@ -160,18 +158,17 @@ function getEnemyData() {
         }
       })
     }
-  // }
 }
 
 function updatePlayerTurn(event) {
   if(event.srcElement.id == "attack"){ //updateCombatText
-    combatText.textContent = "you chose attack!"
+    combatText.textContent = `You attacked ${enemySelected}!`
     // attackMove(player[0], enemyData)
   } else if (event.srcElement.id == "heal") {
     combatText.textContent = "you chose heal!"
     healMove(player[0])
   } else if (event.srcElement.id == "fireball") {
-    combatText.textContent = "you chose fireball!"
+    combatText.textContent = `You casted a fireball on ${enemySelected}!`
     // mAttackMove(player[0], enemyData)
   }
 
