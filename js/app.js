@@ -63,7 +63,7 @@ function handleClick(event) {
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
   getEnemyData()
-  enemyActiveCheck(enemyData1)
+  enemyActiveCheck(enemySelected)
   updatePlayerTurn(event) // update HTML "combat-text"
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
   setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
@@ -212,7 +212,8 @@ function enemySelector(event) { //selects/deselects enemy
       enemyIcon[i].classList.remove("enemy-selected")
     }
     event.target.classList.add("enemy-selected") // add visual indicator
-    enemySelected = event.target.id // add enemy ID to enemySelected
+    enemySelected = event.target.innerText // add enemy ID to enemySelected
+    console.log(enemySelected)
 }
 }
 
