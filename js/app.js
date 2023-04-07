@@ -231,26 +231,32 @@ function updateEnemyTurn() {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
             console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData1,player[0])
+            regenMana(enemyData1)
           } else if(i == 1 && enemyData2.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
             console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData2, player[0])
+            regenMana(enemyData2)
           } else if(i == 2 && enemyData3.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
             console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData3, player[0])
+            regenMana(enemyData3)
           } else if(i == 3 && enemyData4.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
             console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData4, player[0])
+            regenMana(enemyData4)
           } else if(i == 4 && enemyData5.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
             console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData5, player[0])
+            regenMana(enemyData5)
           } else if(i == 5 && enemyData6.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
             console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData6, player[0])
+            regenMana(enemyData6)
           }
         }
         else if(enemyTurn == 1) {
@@ -258,26 +264,32 @@ function updateEnemyTurn() {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
             console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData1,player[0])
+            regenMana(enemyData1)
           } else if(i == 1 && enemyData2.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
             console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData2, player[0])
+            regenMana(enemyData2)
           } else if(i == 2 && enemyData3.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
             console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData3, player[0])
+            regenMana(enemyData3)
           } else if(i == 3 && enemyData4.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
             console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData4, player[0])
+            regenMana(enemyData4)
           } else if(i == 4 && enemyData5.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
             console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData5, player[0])
+            regenMana(enemyData5)
           } else if(i == 5 && enemyData6.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
             console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData6, player[0])
+            regenMana(enemyData6)
           }
         }
       }
