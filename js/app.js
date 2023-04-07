@@ -7,10 +7,11 @@ var game;
 //dynamic variables to account for player stats, enemies imported as well as stage and whether win con is met
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
+import enemyRef from "./enemyRefData.js";
 import stage from "./stageData.js";
 var clearedStages, turn, enemySelected = 0, cooldown = 1;
 
-var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater;
+var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater, enemyReference = enemy;
 
 var enemyStillActive;
 
@@ -18,8 +19,8 @@ var enemyStillActive;
 //cached elements for menus
 
 //cached elements for header section
-const settingEl = document.getElementById("settings")
-const soundEl = document.getElementById("sound")
+const resetEl = document.getElementById("reset-btn")
+const soundEl = document.getElementById("sound-btn")
 
 //cached elements for action section
 const playerIcon = document.getElementById("player-icon")
@@ -46,7 +47,7 @@ class Stage {
 
 
 //header
-settingEl.addEventListener('click', ping)
+resetEl.addEventListener('click', resetGame)
 soundEl.addEventListener('click', ping)
 
 //action
@@ -61,6 +62,18 @@ function handleClick(event) {
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
   renderGameActions(event)
+}
+
+function resetGame() {
+  for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
+    enemyIcon[i].classList.remove("enemy-selected")
+  }
+  player[0].health = 65
+  player[0].mana = 30
+  for(let i = 0; i < 6; i++) enemy[i]=enemyRef[i]
+  getEnemyData()
+  updateEnemyHealth()
+  init()
 }
 
 function renderPlayerHealth() {

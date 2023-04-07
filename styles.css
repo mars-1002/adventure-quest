@@ -18,16 +18,16 @@ div {
 #header-menu {
   background-color: brown;
   display: grid;
-  grid-template-columns: 5fr 1fr 1fr;
+  grid-template-columns: 1fr 5fr 1fr;
 }
 #stage-text {
   grid-column: 1;
   justify-self: start;
 }
-#settings {
-  grid-column: 2;
+#reset-button {
+  grid-column: 1;
 }
-#sound {
+#sound-btn {
   grid-column: 3;
 }
 
