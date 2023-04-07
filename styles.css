@@ -16,7 +16,7 @@
   aspect-ratio: 4/ 3;
   grid-template-columns: 1fr;
   grid-template-rows: .1fr .6fr .3fr;
-  border: 1px solid black;
+  border: 5px solid rgb(55, 20, 73);
 }
 
 div {
@@ -24,7 +24,8 @@ div {
   justify-self: stretch;
 }
 #header-menu {
-  background-color: brown;
+  background-color: #332934;
+  min-height: 36px;
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
 }
@@ -104,8 +105,11 @@ div {
 }
 
 #action-menu {
-  background-color: aquamarine;
+  background-color: #332934;
   display: grid;
+  max-width: 960px;
+  max-height: 216px;
+  min-height: 108px;
   grid-template-columns: .75fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
 }
@@ -117,8 +121,8 @@ div {
   justify-content: center;
 }
 #portrait-img {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 100%;
+  max-height: 100%;
 }
 #stats {
   grid-column: 2;
