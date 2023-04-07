@@ -4,6 +4,7 @@ import enemy from "./enemyData.js"
 import enemyRef from "./enemyRefData.js";
 import stage from "./stageData.js";
 const gameTheme = new Audio("./assets/sounds/Passage_RotMG_Exalt_OST.mp3")
+const actionNoise = new Audio("./assets/sounds/collect_b.wav")
 
 /*------- Variables (state) -------*/
 //dynamic variables to account for player stats, enemies imported as well as stage and whether win con is met
@@ -23,13 +24,16 @@ const resetEl = document.getElementById("reset-btn")
 const soundEl = document.getElementById("sound-btn")
 
 //cached elements for action section
+const startMenuEl = document.getElementById("start-menu")
+const gameMenu = document.getElementById("game-menu")
+const beginButtonMenuEl = document.getElementById("begin-button-menu")
+const actionMenu = document.getElementById("action-menu")
 const playerIcon = document.getElementById("player-icon")
 var enemyIcon = [...document.getElementsByClassName("enemy")]
 const combatText = document.getElementById("combat-text")
 const playerMoves = [...document.getElementsByClassName("player-moves")]
 const playerHealthStatus = document.getElementById("health-status")
 const playerManaStatus = document.getElementById("mana-status")
-console.log(playerHealthStatus.innerText)
 
 
 /*------- Classes -------*/
@@ -53,6 +57,7 @@ soundEl.addEventListener('click', toggleMusic)
 //action
 playerMoves.forEach(click => click.addEventListener('click', handleClick))
 enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
+
 //turn updatePlayerTurn into a handleClick to run logic
 
 /*------- Functions -------*/
@@ -61,6 +66,7 @@ function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
   if(winCondition == true) return 
 
+  actionNoise.play()
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
   renderGameActions(event)
@@ -440,8 +446,20 @@ function updateEnemyHealth() {
 }
 
 function gameStart() { //when pressing start button on title screen
+  
   gameTheme.volume = .1
+  actionNoise.volume = .1
+  const beginEl = document.getElementById("begin-button")
+  beginEl.addEventListener('click', insertActionGameHTML)
+}
+
+function insertActionGameHTML() {
+  actionNoise.play()
+  gameTheme.play()
+  startMenuEl.remove();
+  beginButtonMenuEl.remove();
   init();
+  gameMenu.classList.add("tile-background")
 }
 
 function init() { //init game
@@ -458,4 +476,4 @@ function toggleMusic() {
     gameTheme.play()
   } else gameTheme.pause()
 }
-gameStart();
+gameStart(); //have as button toggle

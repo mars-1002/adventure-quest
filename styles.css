@@ -27,7 +27,6 @@ button {
 }
 
 div {
-  /* border: 1px solid black; */
   justify-self: stretch;
 }
 #header-menu {
@@ -48,12 +47,40 @@ div {
 }
 
 #game-menu {
-  background-image: url("./assets/images/backgroundTile.png");
+  background-color: #3b343c;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   max-height: 432px;
   max-width: 960;
+}
+
+#start-menu {
+  background-color: #3b343c;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  max-height: 432px;
+  max-width: 960;
+}
+
+.tile-background {
+  background-image: url("./assets/images/backgroundTile.png");
+}
+
+#main-title-card {
+  height: 108px;
+  width: 360px;
+  grid-column: 2/4;
+  grid-row: 1;
+  justify-self: center;
+}
+
+#main-title-text {
+  grid-column: 2/4;
+  grid-row: 2;
+  justify-self: center;
+  color: white;
 }
 
 #player-icon {
@@ -110,6 +137,15 @@ div {
 .enemy-selected > .enemy-sprite, .enemy-selected > #arch-wizard-sprite{
   border: 1px solid red;
 }
+#begin-button-menu {
+  background-color: #332934;
+  display: grid;
+  max-width: 960px;
+  max-height: 216px;
+  min-height: 108px;
+  grid-template-columns: .75fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
 
 #action-menu {
   background-color: #332934;
@@ -119,6 +155,12 @@ div {
   min-height: 108px;
   grid-template-columns: .75fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+#begin-button {
+  grid-column: 2;
+  grid-row: 2;
 }
 
 #player-portrait {
