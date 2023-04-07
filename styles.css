@@ -40,7 +40,7 @@ div {
 }
 
 #game-menu {
-  background-color: bisque;
+  background-image: url("./assets/images/backgroundTile.png");
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
