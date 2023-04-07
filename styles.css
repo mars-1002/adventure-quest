@@ -76,7 +76,7 @@ div {
   justify-self: center;
 }
 
-#main-title-text {
+#main-title-text, #win-screen-text {
   grid-column: 2/4;
   grid-row: 2;
   justify-self: center;

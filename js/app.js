@@ -87,6 +87,9 @@ function resetGame() {
 
 function renderPlayerHealth() {
   playerHealthStatus.innerText = `HP: ${player[0].health}`
+  if(player[0].health <= 0) {
+    lossScreen()
+  }
 }
 function renderPlayerMana() {
   playerManaStatus.innerText = `MP: ${player[0].mana}`
@@ -155,7 +158,7 @@ function renderAction() {
 
 function gameCleared() {
   combatText.textContent = "All Enemies defeated!"
-  winCondition = true
+  setTimeout(() => winScreen(), 2000)
 }
 
 function ping(evt) { //remove later
@@ -386,9 +389,6 @@ function enemyTileActive(enemyNum) {
 
 function updateActionScene() {
   playerIcon.innerHTML = `<img src="./assets/images/adventurerSprite.png" alt="Adventurer Sprite" id="adventurer-sprite">`
-  // enemyIcon.forEach(enemy => enemy.textContent = "enemy") //add func to class to assign individual enemy id
-  console.log(game)
-
 }
 
 function updateCombatText() {
@@ -451,6 +451,32 @@ function gameStart() { //when pressing start button on title screen
   actionNoise.volume = .1
   const beginEl = document.getElementById("begin-button")
   beginEl.addEventListener('click', insertActionGameHTML)
+}
+
+function winScreen() {
+  gameTheme.pause()
+  gameMenu.innerHTML = `
+  <div id="win-screen-text">
+  The evil Arch Wizard has fallen! Peace will continue to prosper across the kingdom!<br><br>
+
+  Thanks for playing! Press the Reset button to play again!
+  </div>
+  `
+  gameMenu.classList.remove("tile-background")
+  actionMenu.innerHTML = ``
+}
+
+function lossScreen() {
+  gameTheme.pause()
+  gameMenu.innerHTML = `
+  <div id="win-screen-text">
+  The Arch Wizard's forces were too powerful for the brave adventurer!<br><br>
+
+  Another day passes and the Arch Wizard's influence grows.. Press Reset to fight the Arch Wizard once more!
+  </div>
+  `
+  gameMenu.classList.remove("tile-background")
+  actionMenu.innerHTML = ``
 }
 
 function insertActionGameHTML() {
