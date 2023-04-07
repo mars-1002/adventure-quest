@@ -15,8 +15,6 @@ var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enem
 var enemyStillActive;
 
 /*------- Cached Element References -------*/
-//general cached
-const screenEl = document.getElementById("main") 
 //cached elements for menus
 
 //cached elements for header section
@@ -41,9 +39,6 @@ class Stage {
 }
 
 /*------- Event Listeners -------*/
-//general 
-// screenEl.addEventListener('click', ping)
-
 //main menu
 
 
@@ -64,9 +59,13 @@ function handleClick(event) {
 
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
+  renderGameActions(event)
+}
 
+function renderGameActions(event) {
   renderPlayerTurn(event)
   renderEnemyTurn()
+  renderEndOfCombat()
 }
 function renderPlayerTurn(event){
   updatePlayerTurn(event) // update HTML "combat-text"
@@ -78,6 +77,10 @@ function renderEnemyTurn(){
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
   setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
 
+}
+
+function renderEndOfCombat() {
+  
 }
 
 function gameCleared() {
@@ -353,7 +356,6 @@ function updateEnemyHealth() {
 }
 
 function gameStart() { //when pressing start button on title screen
-  clearedStages = 0;
   game = new Stage(stage[clearedStages])
   init();
 }
