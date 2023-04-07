@@ -338,7 +338,13 @@ function mAttackMove(actor, target) {
 }
 
 function healMove(actor) {
-  console.log(`${actor.name} healed for ${actor.magicAttack} health!`)
+  if(actor.mana >= 20) {
+    console.log(`${actor.name} healed for ${actor.magicAttack} health! and now has ${actor.health + actor.magicAttack}`)
+    actor.health += actor.magicAttack
+    actor.mana -= 20
+  }else {
+    console.log(`${actor.name} doesnt have enough mana! to cast fireball`)
+  }
 }
 
 function regenMana() {
