@@ -26,6 +26,9 @@ const playerIcon = document.getElementById("player-icon")
 const enemyIcon = [...document.getElementsByClassName("enemy")]
 const combatText = document.getElementById("combat-text")
 const playerMoves = [...document.getElementsByClassName("player-moves")]
+const playerHealthStatus = document.getElementById("health-status")
+const playerManaStatus = document.getElementById("mana-status")
+console.log(playerHealthStatus.innerText)
 
 
 /*------- Classes -------*/
@@ -60,6 +63,12 @@ function handleClick(event) {
   renderGameActions(event)
 }
 
+function renderPlayerHealth() {
+  playerHealthStatus.innerText = `HP: ${player[0].health}`
+}
+function renderPlayerMana() {
+  playerManaStatus.innerText = `MP: ${player[0].mana}`
+}
 function renderGameActions(event) {
   renderPlayerTurn(event)
   renderEnemyTurn()
@@ -68,6 +77,7 @@ function renderGameActions(event) {
 function renderPlayerTurn(event){
   updatePlayerTurn(event) // update HTML "combat-text"
   enemyActiveCheck(enemySelected) //removes selection if enemy is dead
+  renderPlayerMana()
 }
 
 function renderEnemyTurn(){
@@ -80,6 +90,8 @@ function renderEnemyTurn(){
 function renderEndOfCombat() {
   regenMana()
   console.log("end of turn has been reached")
+  renderPlayerHealth()
+
 }
 
 function renderBoard() {
@@ -89,6 +101,8 @@ function renderBoard() {
     }else enemyIcon[i].textContent = game.enemies[i]
   }
   getEnemyData() // assigns game.enemies to enemyData variables
+  renderPlayerHealth()
+  renderPlayerMana()
 }
 
 function renderAction() {
@@ -170,10 +184,13 @@ function updatePlayerTurn(event) {
     attackMove(player[0], enemySelected)
     updateEnemyHealth()
   } else if (event.srcElement.id == "heal") {
-    combatText.textContent = "you chose heal!"
+    if(player[0].mana >= 20)combatText.textContent = "you chose heal!"
+    else combatText.textContent = `You tried to cast a heal spell, but didn't have enough mana!`
     healMove(player[0])
+    renderPlayerHealth()
   } else if (event.srcElement.id == "fireball") {
-    combatText.textContent = `You casted a fireball on ${enemySelected.name}!`
+    if(player[0].mana >= 20)combatText.textContent = `You casted a fireball on ${enemySelected.name}!`
+    else combatText.textContent = `You tried to cast fireball, but didn't have enough mana!`
     mAttackMove(player[0], enemySelected)
     updateEnemyHealth()
   }
@@ -333,7 +350,7 @@ function mAttackMove(actor, target) {
     target.health -= actor.magicAttack
     actor.mana -= 20
   }else {
-    console.log(`${actor.name} doesnt have enough mana! to cast fireball`)
+    console.log(`${actor.name} doesnt have enough mana to cast fireball!`)
   }
 }
 
@@ -343,7 +360,7 @@ function healMove(actor) {
     actor.health += actor.magicAttack
     actor.mana -= 20
   }else {
-    console.log(`${actor.name} doesnt have enough mana! to cast fireball`)
+    console.log(`${actor.name} doesnt have enough mana to cast fireball!`)
   }
 }
 
