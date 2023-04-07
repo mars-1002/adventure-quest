@@ -25,7 +25,7 @@ const soundEl = document.getElementById("sound-btn")
 
 //cached elements for action section
 const playerIcon = document.getElementById("player-icon")
-const enemyIcon = [...document.getElementsByClassName("enemy")]
+var enemyIcon = [...document.getElementsByClassName("enemy")]
 const combatText = document.getElementById("combat-text")
 const playerMoves = [...document.getElementsByClassName("player-moves")]
 const playerHealthStatus = document.getElementById("health-status")
@@ -111,15 +111,37 @@ function renderEndOfCombat() {
 function renderBoard() {
   for(let i=0; i<enemy.length-1; i++) {
     if(game.enemies[i] == "") {
-      enemyIcon[i].textContent = "empty"
-    }else enemyIcon[i].textContent = game.enemies[i]
+      enemyIcon[i].textContent = ""
+    }else {
+      enemyIcon[i].textContent = game.enemies[i]
+      if(game.enemies[i] == "orcBarb") {
+        enemyIcon[i].innerHTML = `<img src="./assets/images/orcBarbSprite.png" alt="Orc Barbarian Sprite" class="enemy-sprite">`
+      } else if(game.enemies[i] == "orcMage"){
+        enemyIcon[i].innerHTML = `<img src="./assets/images/orcMageSprite.png" alt="Orc Mage Sprite" class="enemy-sprite">`
+      } else if(game.enemies[i] == "skeletonBarb"){
+        enemyIcon[i].innerHTML = `<img src="./assets/images/skeletonBarbSprite.png" alt="Skeleton Barbarian Sprite" class="enemy-sprite">`
+      } else if(game.enemies[i] == "skeletonMage"){
+        enemyIcon[i].innerHTML = `<img src="./assets/images/skeletonMageSprite.png" alt="Skeleton Mage Sprite" class="enemy-sprite">`
+      } else if(game.enemies[i] == "zombie"){
+        enemyIcon[i].innerHTML = `<img src="./assets/images/zombieSprite.png" alt="Zombie Sprite" class="enemy-sprite">`
+      } else if(game.enemies[i] == "wizard"){
+        enemyIcon[i].innerHTML = `<img src="./assets/images/wizardSprite.png" alt="Wizard Sprite" class="enemy-sprite">`
+      } else if(game.enemies[i] == "archWizard"){
+        enemyIcon[i].innerHTML = `<img src="./assets/images/archWizardSprite.png" alt="Arch Wizard Sprite" class="enemy-sprite" id="arch-wizard-sprite">`
+      }
+    }
   }
   getEnemyData() // assigns game.enemies to enemyData variables
   renderPlayerHealth()
   renderPlayerMana()
 }
 
+function renderEnemySprite() {
+
+}
+
 function renderAction() {
+  renderEnemySprite();
   updateCombatText();
   updateActionScene();
 }
@@ -317,7 +339,7 @@ function updateEnemyTurn() {
 
 function enemySelector(event) { //selects/deselects enemy
   if(cooldown == 1){
-    if(enemyTileActive(event.target.id.charAt(5))) return // conditional check if enemyTile is active
+    if(event.target.innerHTML == "") return // conditional check if enemyTile is active
     for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
       enemyIcon[i].classList.remove("enemy-selected")
     }
@@ -352,7 +374,6 @@ function enemyTileActive(enemyNum) {
 }
 
 function updateActionScene() {
-  console.log(playerIcon.innerHTML)
   playerIcon.innerHTML = `<img src="./assets/images/adventurerSprite.png" alt="Adventurer Sprite" id="adventurer-sprite">`
   // enemyIcon.forEach(enemy => enemy.textContent = "enemy") //add func to class to assign individual enemy id
   console.log(game)

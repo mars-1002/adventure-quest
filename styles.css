@@ -44,6 +44,8 @@ div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+  max-height: 432px;
+  max-width: 960;
 }
 
 #player-icon {
@@ -54,36 +56,51 @@ div {
 #enemy1 {
   grid-column: 3;
   grid-row: 1;
+  justify-self: center;
 }
 #enemy2 {
   grid-column: 4;
   grid-row: 1;
+  justify-self: center;
 }
 #enemy3 {
   grid-column: 3;
   grid-row: 2;
+  justify-self: center;
 }
 #enemy4 {
   grid-column: 4;
   grid-row: 2;
+  justify-self: center;
 }
 #enemy5 {
   grid-column: 3;
   grid-row: 3;
+  justify-self: center;
 }
 #enemy6 {
   grid-column: 4;
   grid-row: 3;
+  justify-self: center;
 }
 
 #adventurer-sprite {
-  height: auto;
+  height: 80%;
   width: max;
   
 }
+.enemy-sprite {
+  height: 60%;
+  width: max;
+}
+#arch-wizard-sprite {
+  height: 80%;
+  width: max;
+}
 
-.enemy-selected {
-  background-color: aqua;
+
+.enemy-selected > .enemy-sprite, .enemy-selected > #arch-wizard-sprite{
+  border: 1px solid red;
 }
 
 #action-menu {
@@ -101,7 +118,7 @@ div {
 }
 #portrait-img {
   max-width: 80%;
-  aspect-ratio: 1/1;
+  max-height: 80%;
 }
 #stats {
   grid-column: 2;
@@ -126,6 +143,11 @@ div {
 .player-moves-disable {
   background-color: darkgrey;
 }
-.dead {
-  background-color: grey;
+.dead > *{ 
+  outline: 40px solid rgba(255, 0, 0, 0.5);
+  outline-offset: -40px;
+}
+.dead > #arch-wizard-sprite{ 
+  outline: 55px solid rgba(255, 0, 0, 0.5);
+  outline-offset: -55px;
 }
