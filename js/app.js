@@ -8,7 +8,7 @@ var game;
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
 import stage from "./stageData.js";
-var clearedStages = 0, turn, enemySelected = 0, cooldown = 1;
+var clearedStages, turn, enemySelected = 0, cooldown = 1;
 
 var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater;
 
@@ -63,7 +63,7 @@ function handleClick(event) {
 function renderGameActions(event) {
   renderPlayerTurn(event)
   renderEnemyTurn()
-  renderEndOfCombat()
+  setTimeout(() => renderEndOfCombat(), 4000)
 }
 function renderPlayerTurn(event){
   updatePlayerTurn(event) // update HTML "combat-text"
@@ -79,6 +79,7 @@ function renderEnemyTurn(){
 
 function renderEndOfCombat() {
   regenMana()
+  console.log("end of turn has been reached")
 }
 
 function renderBoard() {
@@ -157,7 +158,7 @@ function enemiesStillAlive() {
     else if (i == 3) compare = enemyData4
     else if (i == 4) compare = enemyData5
     else if (i == 5) compare = enemyData6
-    if(!game.enemies[i] == ""){
+    if(!(compare == undefined)){
       if(compare.health>0) enemyStillActive++
     }
   }
@@ -326,9 +327,14 @@ function attackMove(actor, target) {
 }
 
 function mAttackMove(actor, target) {
-  console.log(`${actor.name} attacked ${target.name} for ${actor.magicAttack} magic damage!`)
-  console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.magicAttack}`)
-  target.health -= actor.magicAttack
+  if(actor.mana >= 20) {
+    console.log(`${actor.name} attacked ${target.name} for ${actor.magicAttack} magic damage!`)
+    console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.magicAttack}`)
+    target.health -= actor.magicAttack
+    actor.mana -= 20
+  }else {
+    console.log(`${actor.name} doesnt have enough mana! to cast fireball`)
+  }
 }
 
 function healMove(actor) {
@@ -361,7 +367,7 @@ function gameStart() { //when pressing start button on title screen
 }
 
 function init() { //init game
-  clearedStages = 1; //remove later once gameStart works
+  clearedStages = 2; //remove later once gameStart works
   game = new Stage(stage[clearedStages])
   turn = 1;
   renderBoard();
