@@ -88,10 +88,10 @@ function renderEnemyTurn(){
 }
 
 function renderEndOfCombat() {
-  regenMana()
+  regenMana(player[0])
   console.log("end of turn has been reached")
   renderPlayerHealth()
-
+  renderPlayerMana()
 }
 
 function renderBoard() {
@@ -364,8 +364,8 @@ function healMove(actor) {
   }
 }
 
-function regenMana() {
-
+function regenMana(actor) {
+  actor.mana += 10
 }
 
 function updateEnemyHealth() {
