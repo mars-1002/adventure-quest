@@ -1,6 +1,6 @@
 /*------- Constants -------*/
 //winning condition is to clear all 3 stages
-const winCondition = true;
+
 var game;
 
 /*------- Variables (state) -------*/
@@ -10,8 +10,9 @@ import enemy from "./enemyData.js"
 import enemyRef from "./enemyRefData.js";
 import stage from "./stageData.js";
 var clearedStages, turn, enemySelected = 0, cooldown = 1;
+var winCondition;
 
-var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater, enemyReference = enemy;
+var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater;
 
 var enemyStillActive;
 
@@ -58,6 +59,7 @@ enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 /*------- Functions -------*/
 function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
+  if(winCondition == true) return 
 
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
@@ -102,7 +104,6 @@ function renderEnemyTurn(){
 
 function renderEndOfCombat() {
   regenMana(player[0])
-  console.log("end of turn has been reached")
   renderPlayerHealth()
   renderPlayerMana()
 }
@@ -125,6 +126,7 @@ function renderAction() {
 
 function gameCleared() {
   combatText.textContent = "All Enemies defeated!"
+  winCondition = true
 }
 
 function ping(evt) { //remove later
@@ -350,13 +352,15 @@ function enemyTileActive(enemyNum) {
 }
 
 function updateActionScene() {
-  playerIcon.textContent = player[0].name
+  console.log(playerIcon.innerHTML)
+  playerIcon.innerHTML = `<img src="./assets/images/adventurerSprite.png" alt="Adventurer Sprite" id="adventurer-sprite">`
   // enemyIcon.forEach(enemy => enemy.textContent = "enemy") //add func to class to assign individual enemy id
   console.log(game)
 
 }
 
 function updateCombatText() {
+  if(winCondition == true) return 
   if(turn = 1) {
     combatText.textContent = "Your turn!"
   } 
@@ -415,9 +419,10 @@ function gameStart() { //when pressing start button on title screen
 }
 
 function init() { //init game
-  clearedStages = 2; //remove later once gameStart works
+  clearedStages = 2 //remove later once gameStart works
   game = new Stage(stage[clearedStages])
-  turn = 1;
+  turn = 1
+  winCondition = false
   renderBoard();
   renderAction();
 }

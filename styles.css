@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Oryx";
+  src: url("https://files.catbox.moe/q1iazg.ttf");
+}
+
+*{
+  font-family: "Oryx";
+}
 .container {
   margin-left: auto;
   margin-right: auto;
@@ -12,7 +20,7 @@
 }
 
 div {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   justify-self: stretch;
 }
 #header-menu {
@@ -39,7 +47,6 @@ div {
 }
 
 #player-icon {
-  background-color: gray;
   grid-column: 1;
   grid-row: 2;
 }
@@ -68,6 +75,11 @@ div {
   grid-row: 3;
 }
 
+#adventurer-sprite {
+  height: auto;
+  width: max;
+}
+
 .enemy-selected {
   background-color: aqua;
 }
@@ -82,6 +94,12 @@ div {
 #player-portrait {
   grid-column: 1;
   grid-row: 1 / 4;
+  display: flex;
+  justify-content: center;
+}
+#portrait-img {
+  max-width: 80%;
+  aspect-ratio: 1/1;
 }
 #stats {
   grid-column: 2;
