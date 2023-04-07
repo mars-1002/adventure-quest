@@ -1,17 +1,16 @@
 /*------- Constants -------*/
-//winning condition is to clear all 3 stages
-
-var game;
-
-/*------- Variables (state) -------*/
-//dynamic variables to account for player stats, enemies imported as well as stage and whether win con is met
 import player from "./playerData.js"
 import enemy from "./enemyData.js"
 import enemyRef from "./enemyRefData.js";
 import stage from "./stageData.js";
+const gameTheme = new Audio("./assets/sounds/Passage_RotMG_Exalt_OST.mp3")
+
+/*------- Variables (state) -------*/
+//dynamic variables to account for player stats, enemies imported as well as stage and whether win con is met
+var game;
 var clearedStages, turn, enemySelected = 0, cooldown = 1;
 var winCondition;
-
+var musicToggler = 1;
 var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater;
 
 var enemyStillActive;
@@ -49,7 +48,7 @@ class Stage {
 
 //header
 resetEl.addEventListener('click', resetGame)
-soundEl.addEventListener('click', ping)
+soundEl.addEventListener('click', toggleMusic)
 
 //action
 playerMoves.forEach(click => click.addEventListener('click', handleClick))
@@ -57,6 +56,7 @@ enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 //turn updatePlayerTurn into a handleClick to run logic
 
 /*------- Functions -------*/
+
 function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
   if(winCondition == true) return 
@@ -440,7 +440,7 @@ function updateEnemyHealth() {
 }
 
 function gameStart() { //when pressing start button on title screen
-  game = new Stage(stage[clearedStages])
+  gameTheme.volume = .1
   init();
 }
 
@@ -452,5 +452,10 @@ function init() { //init game
   renderBoard();
   renderAction();
 }
-
-init(); //remove later to turn gamestart into action btn
+function toggleMusic() {
+  musicToggler = musicToggler * -1
+  if (musicToggler == 1) {
+    gameTheme.play()
+  } else gameTheme.pause()
+}
+gameStart();
