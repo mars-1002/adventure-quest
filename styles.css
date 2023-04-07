@@ -6,6 +6,13 @@
 *{
   font-family: "Oryx";
 }
+body {
+  background-color: #383039;
+}
+button {
+  color: #dfe54d;
+  background-color: #60423f;
+}
 .container {
   margin-left: auto;
   margin-right: auto;
@@ -126,11 +133,16 @@ div {
 }
 #stats {
   grid-column: 2;
-  grid-row: 2 / 4;
+  grid-row: 3 / 4;
+  font-size: large;
+  color: white;
 }
 #combat-text {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 1 / 2;
+  font-size: large;
+  color: white;
+  justify-self: center;
 }
 #attack {
   grid-column: 3;
