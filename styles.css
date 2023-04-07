@@ -49,6 +49,7 @@ div {
 #player-icon {
   grid-column: 1;
   grid-row: 2;
+  justify-self: center;
 }
 #enemy1 {
   grid-column: 3;
@@ -78,6 +79,7 @@ div {
 #adventurer-sprite {
   height: auto;
   width: max;
+  
 }
 
 .enemy-selected {
