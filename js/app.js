@@ -75,6 +75,7 @@ function resetGame() {
   for(let i = 0; i < 6; i++) enemy[i]=enemyRef[i]
   getEnemyData()
   updateEnemyHealth()
+  removeDeadClass()
   init()
 }
 
@@ -252,10 +253,14 @@ function enemyActiveCheck(enemy) { //check if tile selected is still occupied, i
     } else if(enemyUpdater == "enemy6") {
       enemyIcon[5].classList.add("dead")
     }
-
   }
 }
 
+function removeDeadClass() {
+  for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
+    enemyIcon[i].classList.remove("dead")
+    }
+}
 
 function updateEnemyTurn() {
   if(enemyStillActive > 0){

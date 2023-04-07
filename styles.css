@@ -157,7 +157,8 @@ div {
   grid-row: 3;
 }
 .player-moves-disable {
-  background-color: darkgrey;
+  background-color: #1c1413;
+  color:#615e23;
 }
 .dead > *{ 
   outline: 40px solid rgba(255, 0, 0, 0.5);
