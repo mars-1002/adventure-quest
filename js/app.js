@@ -12,6 +12,8 @@ var clearedStages = 0, turn, enemySelected = 0, cooldown = 1;
 
 var enemyData1, enemyData2, enemyData3, enemyData4, enemyData5, enemyData6, enemyUpdater;
 
+var enemyStillActive;
+
 /*------- Cached Element References -------*/
 //general cached
 const screenEl = document.getElementById("main") 
@@ -72,6 +74,7 @@ function renderPlayerTurn(event){
 }
 
 function renderEnemyTurn(){
+  enemiesStillAlive()
   setTimeout(() => updateEnemyTurn(), 2000) // update HTML "combat-text"
   setTimeout(() => updateCombatText(), 4000) //restart to "your turn"
 
@@ -149,6 +152,22 @@ function getEnemyData() {
     }
 }
 
+function enemiesStillAlive() {
+  enemyStillActive = 0
+  for(let i=0; i<enemyIcon.length; i++) { //move for into a sep func for each enemy
+    let compare;
+    if(i == 0) compare = enemyData1
+    else if (i == 1) compare = enemyData2
+    else if (i == 2) compare = enemyData3
+    else if (i == 3) compare = enemyData4
+    else if (i == 4) compare = enemyData5
+    else if (i == 5) compare = enemyData6
+    if(!game.enemies[i] == ""){
+      if(compare.health>0) enemyStillActive++
+    }
+  }
+}
+
 function updatePlayerTurn(event) {
   if(event.srcElement.id == "attack"){ //updateCombatText
     combatText.textContent = `You attacked ${enemySelected.name}!`
@@ -166,8 +185,6 @@ function updatePlayerTurn(event) {
 }
 
 function enemyActiveCheck(enemy) { //check if tile selected is still occupied, if not, deselect
-  console.log(enemy)
-  console.log(enemyUpdater)
   if(enemy.health <= 0) {
     for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
     enemyIcon[i].classList.remove("enemy-selected")
@@ -185,55 +202,70 @@ function enemyActiveCheck(enemy) { //check if tile selected is still occupied, i
     } else if(enemyUpdater == "enemy6") {
       enemyIcon[5].classList.add("dead")
     }
+
   }
 }
 
 
-function updateEnemyTurn() { // currently takes in the length of active enemies
-  //change func to only account for 1 enemy turn
-  //add in logic for hp checks
-
-  for(let i=0; i<enemyIcon.length; i++) { //move for into a sep func for each enemy
+function updateEnemyTurn() {
+  combatText.textContent = `Enemies turn!`
+  for(let i=0; i<enemyIcon.length; i++) {
     if(!game.enemies[i] == "") {
       var enemyTurn = Math.floor(Math.random() * 2)
+      console.log(enemyTurn)
       if(enemyTurn == 0) {
-        combatText.textContent = `${game.enemies[i]} chose attack!`
-        console.log(`${game.enemies[i]} chose attack!`)
-        if(i == 0){
+        if(i == 0 && enemyData1.health > 0){
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+          console.log(`${game.enemies[i]} chose attack!`)
           attackMove(enemyData1,player[0])
-        } else if(i == 1) {
+        } else if(i == 1 && enemyData2.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+          console.log(`${game.enemies[i]} chose attack!`)
           attackMove(enemyData2, player[0])
-        } else if(i == 2) {
+        } else if(i == 2 && enemyData3.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+          console.log(`${game.enemies[i]} chose attack!`)
           attackMove(enemyData3, player[0])
-        } else if(i == 3) {
+        } else if(i == 3 && enemyData4.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+          console.log(`${game.enemies[i]} chose attack!`)
           attackMove(enemyData4, player[0])
-        } else if(i == 4) {
+        } else if(i == 4 && enemyData5.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+          console.log(`${game.enemies[i]} chose attack!`)
           attackMove(enemyData5, player[0])
-        } else if(i == 5) {
+        } else if(i == 5 && enemyData6.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+          console.log(`${game.enemies[i]} chose attack!`)
           attackMove(enemyData6, player[0])
         }
       }
       else if(enemyTurn == 1) {
-        combatText.textContent = `${game.enemies[i]} chose fireball!`
-        console.log(`${game.enemies[i]} chose fireball!`)
-        if(i == 0){
+        if(i == 0 && enemyData1.health > 0){
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+          console.log(`${game.enemies[i]} chose fireball!`)
           mAttackMove(enemyData1,player[0])
-        } else if(i == 1) {
+        } else if(i == 1 && enemyData2.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+          console.log(`${game.enemies[i]} chose fireball!`)
           mAttackMove(enemyData2, player[0])
-        } else if(i == 2) {
+        } else if(i == 2 && enemyData3.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+          console.log(`${game.enemies[i]} chose fireball!`)
           mAttackMove(enemyData3, player[0])
-        } else if(i == 3) {
+        } else if(i == 3 && enemyData4.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+          console.log(`${game.enemies[i]} chose fireball!`)
           mAttackMove(enemyData4, player[0])
-        } else if(i == 4) {
+        } else if(i == 4 && enemyData5.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+          console.log(`${game.enemies[i]} chose fireball!`)
           mAttackMove(enemyData5, player[0])
-        } else if(i == 5) {
+        } else if(i == 5 && enemyData6.health > 0) {
+          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+          console.log(`${game.enemies[i]} chose fireball!`)
           mAttackMove(enemyData6, player[0])
         }
-      }
-      else {
-        combatText.textContent = `${game.enemies[i]} chose heal!`
-        console.log(`${game.enemies[i]} chose heal!`)
-        // healMove(enemyData)
       }
     }
   }
