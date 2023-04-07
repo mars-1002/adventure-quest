@@ -95,6 +95,9 @@ function healMove(actor) {
 - Netlify
 
 ## Upcoming Features
+- Create idle and attack animations for entities
+- Add in more sound effects for different options selected
+- Add in Music tracks for game screens
 - Create more levels for the player to go through
 - Create more playable characters/classes (Archer, Wizard)
 
