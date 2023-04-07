@@ -54,8 +54,6 @@ enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
 /*------- Functions -------*/
 function handleClick(event) {
   if(!enemySelected) return // conditional to check if an enemy is selected
-  if(!levelClear) return gameCleared()//condition to see if all enemies are cleared
-  //fix gameCleared and levelClear once enemies are in
 
   flipCooldown() // makes unable to switch "enemySelected"
   setTimeout(() => flipCooldown(), 4000) //reallows "enemySelected"
@@ -80,14 +78,28 @@ function renderEnemyTurn(){
 }
 
 function renderEndOfCombat() {
-  
+  regenMana()
+}
+
+function renderBoard() {
+  for(let i=0; i<enemy.length-1; i++) {
+    if(game.enemies[i] == "") {
+      enemyIcon[i].textContent = "empty"
+    }else enemyIcon[i].textContent = game.enemies[i]
+  }
+  getEnemyData() // assigns game.enemies to enemyData variables
+}
+
+function renderAction() {
+  updateCombatText();
+  updateActionScene();
 }
 
 function gameCleared() {
-  combatText.textContent = "You cleared the game!"
+  combatText.textContent = "All Enemies defeated!"
 }
 
-function ping(evt) {
+function ping(evt) { //remove later
   console.log(evt.target.id)
   console.log(game)
   return evt.target.id
@@ -101,26 +113,6 @@ function flipCooldown() {
   else playerMoves.forEach(move => move.classList.remove("player-moves-disable")) // whites in player action btns
 }
 
-function init() { //init game
-  clearedStages = 1; //remove later once gameStart works
-  game = new Stage(stage[clearedStages])
-  turn = 1;
-  renderBoard();
-  renderAction();
-}
-
-function renderBoard() {
-  for(let i=0; i<enemy.length-1; i++) {
-    if(game.enemies[i] == "") {
-      enemyIcon[i].textContent = "empty"
-    }else enemyIcon[i].textContent = game.enemies[i]
-  }
-  getEnemyData() // assigns game.enemies to enemyData variables
-}
-function renderAction() {
-  updateCombatText();
-  updateActionScene();
-}
 
 function levelClear() {
   for(let i=0; i<enemy.length-1; i++) {
@@ -211,66 +203,70 @@ function enemyActiveCheck(enemy) { //check if tile selected is still occupied, i
 
 
 function updateEnemyTurn() {
-  combatText.textContent = `Enemies turn!`
-  for(let i=0; i<enemyIcon.length; i++) {
-    if(!game.enemies[i] == "") {
-      var enemyTurn = Math.floor(Math.random() * 2)
-      console.log(enemyTurn)
-      if(enemyTurn == 0) {
-        if(i == 0 && enemyData1.health > 0){
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-          console.log(`${game.enemies[i]} chose attack!`)
-          attackMove(enemyData1,player[0])
-        } else if(i == 1 && enemyData2.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-          console.log(`${game.enemies[i]} chose attack!`)
-          attackMove(enemyData2, player[0])
-        } else if(i == 2 && enemyData3.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-          console.log(`${game.enemies[i]} chose attack!`)
-          attackMove(enemyData3, player[0])
-        } else if(i == 3 && enemyData4.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-          console.log(`${game.enemies[i]} chose attack!`)
-          attackMove(enemyData4, player[0])
-        } else if(i == 4 && enemyData5.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-          console.log(`${game.enemies[i]} chose attack!`)
-          attackMove(enemyData5, player[0])
-        } else if(i == 5 && enemyData6.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-          console.log(`${game.enemies[i]} chose attack!`)
-          attackMove(enemyData6, player[0])
+  if(enemyStillActive > 0){
+    combatText.textContent = `Enemies turn!`
+    for(let i=0; i<enemyIcon.length; i++) {
+      if(!game.enemies[i] == "") {
+        var enemyTurn = Math.floor(Math.random() * 2)
+        if(enemyTurn == 0) {
+          if(i == 0 && enemyData1.health > 0){
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+            console.log(`${game.enemies[i]} chose attack!`)
+            attackMove(enemyData1,player[0])
+          } else if(i == 1 && enemyData2.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+            console.log(`${game.enemies[i]} chose attack!`)
+            attackMove(enemyData2, player[0])
+          } else if(i == 2 && enemyData3.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+            console.log(`${game.enemies[i]} chose attack!`)
+            attackMove(enemyData3, player[0])
+          } else if(i == 3 && enemyData4.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+            console.log(`${game.enemies[i]} chose attack!`)
+            attackMove(enemyData4, player[0])
+          } else if(i == 4 && enemyData5.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+            console.log(`${game.enemies[i]} chose attack!`)
+            attackMove(enemyData5, player[0])
+          } else if(i == 5 && enemyData6.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
+            console.log(`${game.enemies[i]} chose attack!`)
+            attackMove(enemyData6, player[0])
+          }
         }
-      }
-      else if(enemyTurn == 1) {
-        if(i == 0 && enemyData1.health > 0){
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-          console.log(`${game.enemies[i]} chose fireball!`)
-          mAttackMove(enemyData1,player[0])
-        } else if(i == 1 && enemyData2.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-          console.log(`${game.enemies[i]} chose fireball!`)
-          mAttackMove(enemyData2, player[0])
-        } else if(i == 2 && enemyData3.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-          console.log(`${game.enemies[i]} chose fireball!`)
-          mAttackMove(enemyData3, player[0])
-        } else if(i == 3 && enemyData4.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-          console.log(`${game.enemies[i]} chose fireball!`)
-          mAttackMove(enemyData4, player[0])
-        } else if(i == 4 && enemyData5.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-          console.log(`${game.enemies[i]} chose fireball!`)
-          mAttackMove(enemyData5, player[0])
-        } else if(i == 5 && enemyData6.health > 0) {
-          if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-          console.log(`${game.enemies[i]} chose fireball!`)
-          mAttackMove(enemyData6, player[0])
+        else if(enemyTurn == 1) {
+          if(i == 0 && enemyData1.health > 0){
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+            console.log(`${game.enemies[i]} chose fireball!`)
+            mAttackMove(enemyData1,player[0])
+          } else if(i == 1 && enemyData2.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+            console.log(`${game.enemies[i]} chose fireball!`)
+            mAttackMove(enemyData2, player[0])
+          } else if(i == 2 && enemyData3.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+            console.log(`${game.enemies[i]} chose fireball!`)
+            mAttackMove(enemyData3, player[0])
+          } else if(i == 3 && enemyData4.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+            console.log(`${game.enemies[i]} chose fireball!`)
+            mAttackMove(enemyData4, player[0])
+          } else if(i == 4 && enemyData5.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+            console.log(`${game.enemies[i]} chose fireball!`)
+            mAttackMove(enemyData5, player[0])
+          } else if(i == 5 && enemyData6.health > 0) {
+            if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
+            console.log(`${game.enemies[i]} chose fireball!`)
+            mAttackMove(enemyData6, player[0])
+          }
         }
       }
     }
+  } else {
+    console.log("No more active enemies!")
+    gameCleared()
   }
 }
 
@@ -339,6 +335,10 @@ function healMove(actor) {
   console.log(`${actor.name} healed for ${actor.magicAttack} health!`)
 }
 
+function regenMana() {
+
+}
+
 function updateEnemyHealth() {
   if(enemyUpdater == 1){
   enemyData1 = enemySelected
@@ -358,6 +358,14 @@ function updateEnemyHealth() {
 function gameStart() { //when pressing start button on title screen
   game = new Stage(stage[clearedStages])
   init();
+}
+
+function init() { //init game
+  clearedStages = 1; //remove later once gameStart works
+  game = new Stage(stage[clearedStages])
+  turn = 1;
+  renderBoard();
+  renderAction();
 }
 
 init(); //remove later to turn gamestart into action btn
