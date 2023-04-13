@@ -28,8 +28,9 @@ const startMenuEl = document.getElementById("start-menu")
 const gameMenu = document.getElementById("game-menu")
 const beginButtonMenuEl = document.getElementById("begin-button-menu")
 const actionMenu = document.getElementById("action-menu")
-const playerIcon = document.getElementById("player-icon")
+var playerIcon = document.getElementById("player-icon")
 var enemyIcon = [...document.getElementsByClassName("enemy")]
+
 const combatText = document.getElementById("combat-text")
 const playerMoves = [...document.getElementsByClassName("player-moves")]
 const playerHealthStatus = document.getElementById("health-status")
@@ -73,22 +74,29 @@ function handleClick(event) {
 }
 
 function resetGame() {
-  for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
-    enemyIcon[i].classList.remove("enemy-selected")
-  }
   player[0].health = 65
   player[0].mana = 30
+  gameMenu.innerHTML = ``
+  resetBoard()
+  renderBoard()
+  playerIcon = document.getElementById("player-icon")
+  enemyIcon = [...document.getElementsByClassName("enemy")]
+  // for(let i=0; i<enemyIcon.length; i++) { // remove previous selection
+  //   enemyIcon[i].classList.remove("enemy-selected")
+  // }
   for(let i = 0; i < 6; i++) enemy[i]=enemyRef[i]
-  getEnemyData()
   updateEnemyHealth()
   removeDeadClass()
-  init()
+  insertActionGameHTML()
+  renderAction()
+  enemyIcon.forEach(click => click.addEventListener('click', enemySelector))
+
 }
 
 function renderPlayerHealth() {
   playerHealthStatus.innerText = `HP: ${player[0].health}`
   if(player[0].health <= 0) {
-    lossScreen()
+    setTimeout(() => lossScreen(), 2000)
   }
 }
 function renderPlayerMana() {
@@ -161,12 +169,6 @@ function gameCleared() {
   setTimeout(() => winScreen(), 2000)
 }
 
-function ping(evt) { //remove later
-  console.log(evt.target.id)
-  console.log(game)
-  return evt.target.id
-}
-
 function flipCooldown() {
   cooldown = cooldown * -1;
   if(cooldown == -1) { // greys out player actions to make UI more understandable
@@ -175,35 +177,63 @@ function flipCooldown() {
   else playerMoves.forEach(move => move.classList.remove("player-moves-disable")) // whites in player action btns
 }
 
-
-function levelClear() {
-  for(let i=0; i<enemy.length-1; i++) {
-    if(!game.enemies[i] == "") {
-      return true
-    }else return false
-  }
-}
-
 function getEnemyData() {
     if(!game.enemies == "") {
       enemy.forEach(enemy => {
         if(enemy.name == game.enemies[0]) {
-          enemyData1 = enemy
+          // enemyData1 = enemy
+          enemyData1 = {
+            name: enemy.name,
+            attack: enemy.attack,
+            magicAttack: enemy.magicAttack,
+            health: enemy.health,
+            mana: enemy.mana
+          }
         }
         else if(enemy.name == game.enemies[1]){
-          enemyData2 = enemy
+          enemyData2 = {
+            name: enemy.name,
+            attack: enemy.attack,
+            magicAttack: enemy.magicAttack,
+            health: enemy.health,
+            mana: enemy.mana
+          }
         }
         else if(enemy.name == game.enemies[2]){
-          enemyData3 = enemy
+          enemyData3 = {
+            name: enemy.name,
+            attack: enemy.attack,
+            magicAttack: enemy.magicAttack,
+            health: enemy.health,
+            mana: enemy.mana
+          }
         }
         else if(enemy.name == game.enemies[3]){
-          enemyData4 = enemy
+          enemyData4 = {
+            name: enemy.name,
+            attack: enemy.attack,
+            magicAttack: enemy.magicAttack,
+            health: enemy.health,
+            mana: enemy.mana
+          }
         }
         else if(enemy.name == game.enemies[4]){
-          enemyData5 = enemy
+          enemyData5 = {
+            name: enemy.name,
+            attack: enemy.attack,
+            magicAttack: enemy.magicAttack,
+            health: enemy.health,
+            mana: enemy.mana
+          }
         }
         else if(enemy.name == game.enemies[5]){
-          enemyData6 = enemy
+          enemyData6 = {
+            name: enemy.name,
+            attack: enemy.attack,
+            magicAttack: enemy.magicAttack,
+            health: enemy.health,
+            mana: enemy.mana
+          }
         }
       })
     }
@@ -280,32 +310,26 @@ function updateEnemyTurn() {
         if(enemyTurn == 0) {
           if(i == 0 && enemyData1.health > 0){
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-            console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData1,player[0])
             regenMana(enemyData1)
           } else if(i == 1 && enemyData2.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-            console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData2, player[0])
             regenMana(enemyData2)
           } else if(i == 2 && enemyData3.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-            console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData3, player[0])
             regenMana(enemyData3)
           } else if(i == 3 && enemyData4.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-            console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData4, player[0])
             regenMana(enemyData4)
           } else if(i == 4 && enemyData5.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-            console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData5, player[0])
             regenMana(enemyData5)
           } else if(i == 5 && enemyData6.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose attack!`
-            console.log(`${game.enemies[i]} chose attack!`)
             attackMove(enemyData6, player[0])
             regenMana(enemyData6)
           }
@@ -313,32 +337,26 @@ function updateEnemyTurn() {
         else if(enemyTurn == 1) {
           if(i == 0 && enemyData1.health > 0){
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-            console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData1,player[0])
             regenMana(enemyData1)
           } else if(i == 1 && enemyData2.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-            console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData2, player[0])
             regenMana(enemyData2)
           } else if(i == 2 && enemyData3.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-            console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData3, player[0])
             regenMana(enemyData3)
           } else if(i == 3 && enemyData4.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-            console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData4, player[0])
             regenMana(enemyData4)
           } else if(i == 4 && enemyData5.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-            console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData5, player[0])
             regenMana(enemyData5)
           } else if(i == 5 && enemyData6.health > 0) {
             if(enemyStillActive == 1) combatText.textContent = `${game.enemies[i]} chose fireball!`
-            console.log(`${game.enemies[i]} chose fireball!`)
             mAttackMove(enemyData6, player[0])
             regenMana(enemyData6)
           }
@@ -346,7 +364,6 @@ function updateEnemyTurn() {
       }
     }
   } else {
-    console.log("No more active enemies!")
     gameCleared()
   }
 }
@@ -382,11 +399,6 @@ function enemySelector(event) { //selects/deselects enemy
   }
 }
 
-function enemyTileActive(enemyNum) {
-  if(enemyIcon[enemyNum-1].textContent == "empty") return true
-  else return false
-}
-
 function updateActionScene() {
   playerIcon.innerHTML = `<img src="./assets/images/adventurerSprite.png" alt="Adventurer Sprite" id="adventurer-sprite">`
 }
@@ -399,29 +411,23 @@ function updateCombatText() {
 }
 
 function attackMove(actor, target) {
-  console.log(`${actor.name} attacked ${target.name} for ${actor.attack} damage!`)
-  console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.attack}`)
   target.health -= actor.attack
 }
 
 function mAttackMove(actor, target) {
   if(actor.mana >= 20) {
-    console.log(`${actor.name} attacked ${target.name} for ${actor.magicAttack} magic damage!`)
-    console.log(`${target.name}'s HP went from ${target.health} to ${target.health-actor.magicAttack}`)
     target.health -= actor.magicAttack
     actor.mana -= 20
   }else {
-    console.log(`${actor.name} doesnt have enough mana to cast fireball!`)
   }
 }
 
 function healMove(actor) {
   if(actor.mana >= 20) {
-    console.log(`${actor.name} healed for ${actor.magicAttack} health! and now has ${actor.health + actor.magicAttack}`)
     actor.health += actor.magicAttack
     actor.mana -= 20
   }else {
-    console.log(`${actor.name} doesnt have enough mana to cast fireball!`)
+
   }
 }
 
@@ -463,7 +469,7 @@ function winScreen() {
   </div>
   `
   gameMenu.classList.remove("tile-background")
-  actionMenu.innerHTML = ``
+  // actionMenu.innerHTML = ``
 }
 
 function lossScreen() {
@@ -476,7 +482,41 @@ function lossScreen() {
   </div>
   `
   gameMenu.classList.remove("tile-background")
-  actionMenu.innerHTML = ``
+  // actionMenu.innerHTML = ``
+}
+
+function resetBoard() {
+  gameMenu.innerHTML = 
+    // `
+    //   <div id="player-icon">
+    //   </div>
+    //   <div class="enemy" id="enemy1"></div>
+    //   <div class="enemy" id="enemy2">
+    //   </div>
+    //   <div class="enemy" id="enemy3">
+    //   </div>
+    //   <div class="enemy" id="enemy4">
+    //   </div>
+    //   <div class="enemy" id="enemy5"></div>
+    //   <div class="enemy" id="enemy6"></div>
+    // `
+    `
+      <div id="player-icon">
+        <img src="./assets/images/adventurerSprite.png" alt="Adventurer Sprite" id="adventurer-sprite">
+      </div>
+      <div class="enemy" id="enemy1"></div>
+      <div class="enemy" id="enemy2">
+        <img src="./assets/images/wizardSprite.png" alt="Wizard Sprite" class="enemy-sprite">
+      </div>
+      <div class="enemy" id="enemy3">
+        <img src="./assets/images/orcBarbSprite.png" alt="Orc Barbarian Sprite" class="enemy-sprite">
+      </div>
+      <div class="enemy" id="enemy4">
+        <img src="./assets/images/archWizardSprite.png" alt="Arch Wizard Sprite" class="enemy-sprite" id="arch-wizard-sprite">
+      </div>
+      <div class="enemy" id="enemy5"></div>
+      <div class="enemy" id="enemy6"></div>
+      `
 }
 
 function insertActionGameHTML() {
